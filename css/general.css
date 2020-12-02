@@ -58,10 +58,18 @@ header > div:last-of-type {
   font-size: 20px;
 }
 .menu_selected {
-  color:  #8400FF;
   background-color: white;
   border: 1px solid #8400FF;
   border-radius: 10px;
+}
+.menu_item a {
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+}
+.menu_selected a {
+  color: #8400FF;
+  font-weight: 600;
 }
 
 footer {
