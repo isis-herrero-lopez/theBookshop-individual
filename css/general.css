@@ -57,3 +57,22 @@ header > div:last-of-type {
   margin-right: 20px;
   font-size: 20px;
 }
+
+footer {
+  display: flex;
+  justify-content: space-around;
+  background-color:  #B39412;
+  height: 60px;
+  padding: 10px 40px 20px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+}
+footer p {
+  width: 178px;
+}
+#social_media i {
+  color: #8400FF;
+  font-size: 25px;
+  margin: 5px 2px 0;
+}
