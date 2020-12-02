@@ -6,8 +6,8 @@
 .filters {
   background-color: #FFD00D;
   height: max-content;
-  padding: 10px 15px 15px 10px;
-  width: max-content;
+  padding: 10px 15px 25px 10px;
+  width: 25%;
 }
 .filters h3 {
   font-size: 22px;
@@ -16,6 +16,16 @@
   font-size: 18px;
   padding: 5px 0 0 10px;
   font-weight: 400;
+}
+.filters h4:not(:first-of-type) {
+  padding-top: 10px;
+}
+.filters input {
+  margin: 5px 0 5px 18px;
+}
+.filters label {
+  font-size: 18px;
+  padding: 0 0 8px 5px;
 }
 
 .products_list {
