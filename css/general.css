@@ -11,7 +11,7 @@ header {
   display: flex;
   justify-content: space-between;
 }
-h1, p { 
+h1, h2, h3, h4, p { 
   margin: 0;
 }
 #logo {
@@ -75,4 +75,26 @@ footer p {
   color: #8400FF;
   font-size: 25px;
   margin: 5px 2px 0;
+}
+
+.headline {
+  color: #8400FF;
+  font-style: italic;
+  font-size: 25px;
+  margin: 10px 40px;
+}
+.headline h2 {
+  font-weight: 600;
+}
+
+.button_primary {
+  margin: 0 auto;
+  background-color: #8400FF;
+  width: max-content;
+  padding: 10px 22px;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: 3px outset #9019FF;
 }
