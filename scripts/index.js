@@ -1,3 +1,4 @@
+
 const productsList = document.getElementsByClassName("products_list")[0];
 fetch("./json/books.json")
   .then(res => {
@@ -5,7 +6,7 @@ fetch("./json/books.json")
   })
   .then(data => {
     data.map(item => {
-      const product = `<div class="product_item">
+      const product = `<div class="product_item" onclick="openDetails('${item.title}')">
       <img src="${item.image}">
         <h3>${item.title}</h3>
         <h4>${item.author}</h4>
@@ -16,3 +17,17 @@ fetch("./json/books.json")
     productsList.innerHTML += product;
     });
   });
+
+  //onclick="toBasket('${event}', '${item.title}')"
+
+function openDetails(title) {
+  location.href = "./productDetail.html?title=" + title;
+}
+
+/*
+function toBasket(event, title) {
+  console.log(event);
+  event.stopPropagation();
+  console.log("here", title);
+}
+*/
