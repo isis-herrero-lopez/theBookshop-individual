@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: 'Source Serif Pro', serif;
+  width: 1024px;
+}
+header {
+  height: 110px;
+  width: 100%;
+  background-color: #8400FF;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+h1, p { 
+  margin: 0;
+}
+#logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+}
+#logo span {
+  color: #FFD00D;
+  font-size: 60px;
+  font-style: italic;
+}
+header > div:last-of-type {
+  display: flex;
+  flex-direction: column;
+}
+#basket {
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color:  #FFD00D;
+  font-size: 25px;
+  padding: 10px 20px;
+}
+#basket span {
+  color: white;
+}
+#basket i {
+  margin-right: 10px;
+  position: relative;
+  bottom: 5px;
+}
+#menu {
+  display: flex;
+  justify-content: flex-end;
+}
+.menu_item {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  margin-right: 20px;
+  font-size: 20px;
+}
