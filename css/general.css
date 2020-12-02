@@ -57,6 +57,12 @@ header > div:last-of-type {
   margin-right: 20px;
   font-size: 20px;
 }
+.menu_selected {
+  color:  #8400FF;
+  background-color: white;
+  border: 1px solid #8400FF;
+  border-radius: 10px;
+}
 
 footer {
   display: flex;
