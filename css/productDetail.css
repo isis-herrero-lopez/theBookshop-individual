@@ -37,6 +37,11 @@
   text-align: center;
   margin-bottom: 40px;
 }
+.further_details {
+  display: grid; 
+  grid-template-columns: max-content 50%;
+  column-gap: 15px;
+}
 .further_details p {
   font-size: 20px;
   margin-bottom: 10px;
