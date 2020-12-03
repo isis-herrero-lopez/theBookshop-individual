@@ -28,6 +28,7 @@ h1, h2, h3, h4, h5, p {
 header > div:last-of-type {
   display: flex;
   flex-direction: column;
+  align-items: flex-end
 }
 #basket {
   height: 50px;
@@ -37,6 +38,8 @@ header > div:last-of-type {
   color:  #FFD00D;
   font-size: 25px;
   padding: 10px 20px;
+  cursor: pointer;
+  width: max-content;
 }
 #basket span {
   color: white;
