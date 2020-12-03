@@ -3,15 +3,7 @@ const basketSpace = document.getElementById("basket_contents");
 const totalPriceSlot = document.getElementById("final_price");
 const contents = JSON.parse(basketContent);
 console.log(contents);
-const empty = isEmpty();
-function isEmpty(contents) {
-  for(var key in contents) {
-      if(contents.hasOwnProperty(key))
-          return false;
-  }
-  return true;
-}
-if (empty === true) {
+if (contents.length === 0) {
   basketSpace.innerHTML += `<p class="empty_cart">Your basket is empty.</p>`;
   basketSpace.style.marginBottom = "30px";
   const mainDivs = document.getElementsByTagName("main")[0].getElementsByTagName("div");

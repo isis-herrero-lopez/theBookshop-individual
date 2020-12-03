@@ -52,6 +52,7 @@ function toBasket(title) {
         basketSize.innerHTML = "(" + basket.length + " items)";
       }
     }
+    console.log(basket);
   });
 }
 
