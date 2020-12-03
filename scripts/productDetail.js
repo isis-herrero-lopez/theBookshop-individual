@@ -20,7 +20,37 @@ const button = document.getElementById("basket_button");
 const counterQuantity = document.getElementById("counter_number");
 const menuItems = Array.from(document.getElementsByClassName("menu_item"));
 
-let title = window.location.search.substring(7).split("%20").join(' ');
+let title;
+let basket = [];
+if (window.location.search.substring(1).indexOf("?") !== -1) {
+  const endingSubstring = window.location.search.substring(1).indexOf("?") + 1;
+  title = window.location.search.substring(7, endingSubstring).split("%20").join(' ');
+  const items = window.location.search.substring(endingSubstring + 8).split("%20").join(' ').split("%22").join('"');;
+  basket = JSON.parse(items);
+  console.log(basket);
+  updateBasketSize(basket);
+} else {
+  title = window.location.search.substring(7).split("%20").join(' ');
+}
+
+function updateBasketSize(basket) {
+  if (basket.length === 1) {
+    const size = basket[0].quantity;
+    if (size === 1) {
+      basketSize.innerHTML = "(1 item)";
+    } else {
+      basketSize.innerHTML = "(" + size + " items)";
+    }
+  } else if (basket.length > 1) {
+    let size = 0;
+    for (let i = 0; i < basket.length; i++) {
+      size += basket[i].quantity;
+    }
+    basketSize.innerHTML = "(" + size + " items)";
+  }
+}
+
+
 if (title === "Harry Potter and the Philosophers Stone") {
   title = "Harry Potter and the Philosopher's Stone"
 } 
@@ -72,7 +102,6 @@ fetch("./json/books.json")
     });
   });
 
-let basket = [];
 
 function goToBasket() {
   const basketContent = JSON.stringify(basket);

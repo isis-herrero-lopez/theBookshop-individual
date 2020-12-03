@@ -67,7 +67,8 @@ fetch("./json/books.json")
   });
 
 function openDetails(title) {
-  location.href = "./productDetail.html?title=" + title;
+  const basketContent = JSON.stringify(basket);
+  location.href = "./productDetail.html?title=" + title + "?basket=" + basketContent;
 }
 
 function toBasket(title) {
