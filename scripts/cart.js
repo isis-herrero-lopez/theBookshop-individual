@@ -3,60 +3,67 @@ const basketSpace = document.getElementById("basket_contents");
 const totalPriceSlot = document.getElementById("final_price");
 const basketSize = document.getElementById("basket_size");
 
-const contents = JSON.parse(basketContent);
-if (contents.length === 0) {
-  basketSpace.innerHTML += `<p class="empty_cart">Your basket is empty.</p>`;
-  basketSpace.style.marginBottom = "30px";
-  const mainDivs = document.getElementsByTagName("main")[0].getElementsByTagName("div");
-  for (let i = 7; i < mainDivs.length; i++) {
-    mainDivs[i].style.display = "none";
-  }
-} else {
-  contents.map(item => {
-    const basketItem = `<div class="basket_item">
-      <img src="${item.image}">
-      <div class="basket_info">
-        <h3>${item.title}</h3>
-        <h4>${item.author}</h4>
-        <div class="basket_further">
-          <p>${item.length}</p>
-          <p>${item.format}</p>
-        </div>
-      </div>
-      <div class="basket_price_section">
-        <div class="price_upper">
-          <div class="price_item">
-            <p class="price_title">Price</p>
-            <p class="price_content" id="price_${contents.indexOf(item)}">${item.price.toFixed(2)} €</p>
+let contents = JSON.parse(basketContent);
+
+window.addEventListener("load", totalBill);
+window.addEventListener("load", updateBasketSize);
+window.addEventListener("load", showContents(contents));
+
+function showContents(contents) {
+  if (contents.length === 0) {
+    basketSpace.innerHTML += `<p class="empty_cart">Your basket is empty.</p>`;
+    basketSpace.style.marginBottom = "30px";
+    const mainDivs = document.getElementsByTagName("main")[0].getElementsByTagName("div");
+    for (let i = 7; i < mainDivs.length; i++) {
+      mainDivs[i].style.display = "none";
+    }
+  } else {
+    contents.map(item => {
+      const basketItem = `<div class="basket_item">
+        <img src="${item.image}">
+        <div class="basket_info">
+          <h3>${item.title}</h3>
+          <h4>${item.author}</h4>
+          <div class="basket_further">
+            <p>${item.length}</p>
+            <p>${item.format}</p>
           </div>
-          <div class="price_item">
-            <p class="price_title">Quantity</p>
-            <div class="quantity_counter">
-              <div id="counter">
-                <p class="counter_number" id="number_${contents.indexOf(item)}">${item.quantity}</p>
-              </div>
-              <div class="up_down">
-                <div id="counter_up" onclick="numberUp('item_` + contents.indexOf(item) + `')">
-                  <i class="fas fa-sort-up"></i>
+        </div>
+        <div class="basket_price_section">
+          <div class="price_upper">
+            <div class="price_item">
+              <p class="price_title">Price</p>
+              <p class="price_content" id="price_${contents.indexOf(item)}">${item.price.toFixed(2)} €</p>
+            </div>
+            <div class="price_item">
+              <p class="price_title">Quantity</p>
+              <div class="quantity_counter">
+                <div id="counter">
+                  <p class="counter_number" id="number_${contents.indexOf(item)}">${item.quantity}</p>
                 </div>
-                <div id="counter_down" onclick="numberDown('item_` + contents.indexOf(item) + `')">
-                  <i class="fas fa-sort-down"></i>
+                <div class="up_down">
+                  <div id="counter_up" onclick="numberUp('item_` + contents.indexOf(item) + `')">
+                    <i class="fas fa-sort-up"></i>
+                  </div>
+                  <div id="counter_down" onclick="numberDown('item_` + contents.indexOf(item) + `')">
+                    <i class="fas fa-sort-down"></i>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="price_item">
+              <p class="price_title">Total</p>
+              <p class="price_content" id="first_total_${contents.indexOf(item)}">${(item.quantity * item.price).toFixed(2)} €</p>
+            </div>
           </div>
-          <div class="price_item">
-            <p class="price_title">Total</p>
-            <p class="price_content" id="first_total_${contents.indexOf(item)}">${(item.quantity * item.price).toFixed(2)} €</p>
+          <div class="price_lower">
+            <p class="button_secondary" onclick="deleteBook(${contents.indexOf(item)})">Remove</p>
           </div>
         </div>
-        <div class="price_lower">
-          <p class="button_secondary">Remove</p>
-        </div>
-      </div>
-    </div>`;
-    basketSpace.innerHTML += basketItem;
-  });
+      </div>`;
+      basketSpace.innerHTML += basketItem;
+    });
+  }
 }
 
 function numberUp(item) {
@@ -98,7 +105,6 @@ function numberDown(item) {
   updateBasketSize();
 }
 
-window.addEventListener("load", totalBill);
 function totalBill() {
   const pricesParagraphs = document.getElementsByClassName("price_content");
   const pricesArray = [...pricesParagraphs];
@@ -110,7 +116,6 @@ function totalBill() {
   totalPriceSlot.innerHTML = finalPrice + " €";
 }
 
-window.addEventListener("load", updateBasketSize);
 function updateBasketSize() {
   const quantities = document.getElementsByClassName("counter_number");
   let newQuantity = 0;
@@ -123,4 +128,10 @@ function updateBasketSize() {
   } else {
     basketSize.innerHTML = "(1 item)";
   }
+}
+
+function deleteBook(index) {
+  const newContents = contents.filter(item => contents.indexOf(item) !== index);
+  basketSpace.innerHTML = "";
+  showContents(newContents);
 }
