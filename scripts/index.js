@@ -45,9 +45,18 @@ function toBasket(title) {
       };
       basket = [...basket, productToCart];
       if (basket.length === 1) {
-        basketSize.innerHTML = "(1 item)";
+        const size = basket[0].quantity;
+        if (size === 1) {
+          basketSize.innerHTML = "(1 item)";
+        } else {
+          basketSize.innerHTML = "(" + size + " items)";
+        }
       } else if (basket.length > 1) {
-        basketSize.innerHTML = "(" + basket.length + " items)";
+        let size = 0;
+        for (let i = 0; i < basket.length; i++) {
+          size += basket[i].quantity;
+        }
+        basketSize.innerHTML = "(" + size + " items)";
       }
     }
   });
