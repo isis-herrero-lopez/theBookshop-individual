@@ -33,22 +33,24 @@ function toBasket(title) {
   })
   .then(data => {
     const product = data.filter(item => item.title === title)[0];
-    productToCart = {
-      image: product.image,
-      title: product.title,
-      author: product.author,
-      length: product.length,
-      format: product.format,
-      price: product.price,
-      quantity: 1
-    };
-    basket = [...basket, productToCart];
-    console.log(basket);
-    
-    if (basket.length === 1) {
-      basketSize.innerHTML = "(1 item)";
-    } else if (basket.length > 1) {
-      basketSize.innerHTML = "(" + basket.length + " items)";
+    if (product !== undefined) {
+      productToCart = {
+        image: product.image,
+        title: product.title,
+        author: product.author,
+        length: product.length,
+        format: product.format,
+        price: product.price,
+        quantity: 1
+      };
+      basket = [...basket, productToCart];
+      console.log(basket);
+      
+      if (basket.length === 1) {
+        basketSize.innerHTML = "(1 item)";
+      } else if (basket.length > 1) {
+        basketSize.innerHTML = "(" + basket.length + " items)";
+      }
     }
   });
 }

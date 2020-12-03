@@ -1,3 +1,8 @@
+window.addEventListener("load", changeAddress);
+function changeAddress() {
+  window.history.replaceState({}, document.title, "/" + "productDetail.html");
+}
+
 const imageSlot = document.getElementById("productImage");
 const titleSlot = document.getElementById("productTitle");
 const authorSlot = document.getElementById("productAuthor");
@@ -27,3 +32,8 @@ fetch("./json/books.json")
     priceSlot.innerHTML = product.price.toFixed(2) + " €";
     summarySlot.innerHTML = product.summary;
   });
+
+function goToBasket() {
+    const basketContent = JSON.stringify(basket);
+    location.href='./cart.html?basket=' + basketContent;
+  }
