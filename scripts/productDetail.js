@@ -138,13 +138,3 @@ function numberDown() {
     counterQuantity.innerHTML = newQuantity;
   }
 }
-
-
-
-/*
-<div class="related_item">
-            <img src="./images/potter2.jpeg">
-            <h3>Harry Potter and the Chamber of Secrets</h3>
-            <h4>J.K. Rowling</h4>
-          </div>
-*/

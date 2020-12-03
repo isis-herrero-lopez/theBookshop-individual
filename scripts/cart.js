@@ -1,3 +1,8 @@
+window.addEventListener("load", changeAddress);
+function changeAddress() {
+  window.history.replaceState({}, document.title, "/" + "productDetail.html");
+}
+
 const basketContent = window.location.search.substring(8).split("%20").join(' ').split("%22").join('"');
 const basketSpace = document.getElementById("basket_contents");
 const totalPriceSlot = document.getElementById("final_price");
