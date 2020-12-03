@@ -114,6 +114,7 @@ footer p {
   font-weight: 600;
   border-radius: 12px;
   border: 3px outset #9019FF;
+  cursor: pointer;
 }
 .button_secondary {
   color: #8400FF;
@@ -124,4 +125,5 @@ footer p {
   font-weight: 600;
   border-radius: 12px;
   border: 3px outset #9019FF;
+  cursor: pointer;
 }

@@ -1,3 +1,5 @@
+let basket = [];
+const basketSize = document.getElementById("basket_size");
 const productsList = document.getElementsByClassName("products_list")[0];
 fetch("./json/books.json")
   .then(res => {
@@ -24,5 +26,34 @@ function openDetails(title) {
 }
 
 function toBasket(title) {
-  console.log(title);
+  let productToCart = {};
+  fetch("./json/books.json")
+  .then(res => {
+    return res.json();
+  })
+  .then(data => {
+    const product = data.filter(item => item.title === title)[0];
+    productToCart = {
+      image: product.image,
+      title: product.title,
+      author: product.author,
+      length: product.length,
+      format: product.format,
+      price: product.price,
+      quantity: 1
+    };
+    basket = [...basket, productToCart];
+    console.log(basket);
+    
+    if (basket.length === 1) {
+      basketSize.innerHTML = "(1 item)";
+    } else if (basket.length > 1) {
+      basketSize.innerHTML = "(" + basket.length + " items)";
+    }
+  });
+}
+
+function goToBasket() {
+  const basketContent = JSON.stringify(basket);
+  location.href='./cart.html?basket=' + basketContent;
 }
