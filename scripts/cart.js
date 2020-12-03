@@ -1,5 +1,6 @@
 const basketContent = window.location.search.substring(8).split("%20").join(' ').split("%22").join('"');
 const basketSpace = document.getElementById("basket_contents");
+const totalPriceSlot = document.getElementById("final_price");
 const contents = JSON.parse(basketContent);
 console.log(contents);
 contents.map(item => {
@@ -64,6 +65,7 @@ function numberUp(item) {
   const total = document.getElementById(totalId);
   const newTotal = (price * newValue).toFixed(2);
   total.innerHTML = newTotal + " €";
+  totalBill();
 }
 function numberDown(item) {
   const number = item.substring(5);
@@ -81,4 +83,18 @@ function numberDown(item) {
   const total = document.getElementById(totalId);
   const newTotal = (price * newValue).toFixed(2);
   total.innerHTML = newTotal + " €";
+  console.log(newTotal);
+  totalBill();
+}
+
+window.addEventListener("load", totalBill);
+function totalBill() {
+  const pricesParagraphs = document.getElementsByClassName("price_content");
+  const pricesArray = [...pricesParagraphs];
+  const prices = pricesArray.filter(item => (pricesArray.indexOf(item) % 2 !== 0)).map(item => parseFloat(item.innerHTML.substring(0, item.innerHTML.length - 2)));
+  let finalPrice = 0;
+  for (let i = 0; i < prices.length; i++) {
+    finalPrice += prices[i];
+  }
+  totalPriceSlot.innerHTML = finalPrice + " €";
 }
