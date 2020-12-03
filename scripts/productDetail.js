@@ -11,6 +11,7 @@ const languageSlot = document.getElementById("productLanguage");
 const lengthSlot = document.getElementById("productLength");
 const priceSlot = document.getElementById("productPrice");
 const summarySlot = document.getElementById("productSummary");
+const related = document.getElementsByClassName("related_products")[0];
 
 const title = window.location.search.substring(7).split("%20").join(' ');
 fetch("./json/books.json")
@@ -28,6 +29,37 @@ fetch("./json/books.json")
     lengthSlot.innerHTML = product.length;
     priceSlot.innerHTML = product.price.toFixed(2) + " €";
     summarySlot.innerHTML = product.summary;
+
+    const filters = product.filters;
+    let relatedItems = [];
+    const newData = data.filter(item => item.title !== product.title);
+    for (let i = 0; i < filters.length; i++) {
+      newData.map(item => {
+        const itemFilters = item.filters;
+        for (let k = 0; k < itemFilters.length; k++) {
+          if (itemFilters[k] === filters[i]) {
+            const relatedItem = {
+              title: item.title,
+              author: item.author,
+              image: item.image
+            }
+            if (relatedItems.length < 4) {
+              relatedItems = [...relatedItems, relatedItem];
+            } else {
+              break;
+            }
+          }
+        }
+      });
+    }
+    relatedItems.map(item => {
+      const itemToAdd = `<div class="related_item">
+        <img src="${item.image}">
+        <h3>${item.title}</h3>
+        <h4>${item.author}</h4>
+      </div>`;
+      related.innerHTML += itemToAdd;
+    });
   });
 
 let basket = [];
@@ -100,3 +132,13 @@ function numberDown() {
     counterQuantity.innerHTML = newQuantity;
   }
 }
+
+
+
+/*
+<div class="related_item">
+            <img src="./images/potter2.jpeg">
+            <h3>Harry Potter and the Chamber of Secrets</h3>
+            <h4>J.K. Rowling</h4>
+          </div>
+*/

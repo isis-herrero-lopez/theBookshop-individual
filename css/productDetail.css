@@ -123,7 +123,7 @@
 .related_products {
   margin: 0 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .related_item {
   width: 20%;
