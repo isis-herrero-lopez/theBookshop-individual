@@ -27,7 +27,7 @@
   height: 240px;
   border-bottom: 3px solid #FFD00D;
 }
-.first_item {
+.basket_item:first-of-type {
   border-top: 3px solid #FFD00D;
 }
 .basket_item:last-of-type {
