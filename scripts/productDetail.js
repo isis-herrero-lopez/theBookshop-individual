@@ -2,6 +2,7 @@ window.addEventListener("load", changeAddress);
 function changeAddress() {
   window.history.replaceState({}, document.title, "/" + "productDetail.html");
 }
+
 const imageSlot = document.getElementById("productImage");
 const titleSlot = document.getElementById("productTitle");
 const authorSlot = document.getElementById("productAuthor");
@@ -12,6 +13,12 @@ const lengthSlot = document.getElementById("productLength");
 const priceSlot = document.getElementById("productPrice");
 const summarySlot = document.getElementById("productSummary");
 const related = document.getElementsByClassName("related_products")[0];
+const basketSize = document.getElementById("basket_size");
+const counterUp = document.getElementById("counter_up");
+const counterDown = document.getElementById("counter_down");
+const button = document.getElementById("basket_button");
+const counterQuantity = document.getElementById("counter_number");
+const menuItems = Array.from(document.getElementsByClassName("menu_item"));
 
 let title = window.location.search.substring(7).split("%20").join(' ');
 if (title === "Harry Potter and the Philosophers Stone") {
@@ -66,14 +73,12 @@ fetch("./json/books.json")
   });
 
 let basket = [];
-const basketSize = document.getElementById("basket_size");
+
 function goToBasket() {
   const basketContent = JSON.stringify(basket);
   location.href='./cart.html?basket=' + basketContent;
 }
-const counterUp = document.getElementById("counter_up");
-const counterDown = document.getElementById("counter_down");
-const button = document.getElementById("basket_button");
+
 window.addEventListener("load", () => {
   counterUp.addEventListener("click", () => numberUp());
   counterDown.addEventListener("click", () => numberDown());
@@ -122,8 +127,6 @@ function toBasket(title) {
   });
 }
 
-
-const counterQuantity = document.getElementById("counter_number");
 function numberUp() {
   const quantity = parseInt(document.getElementById("counter_number").innerHTML);
   if (quantity < 10) {
@@ -137,4 +140,10 @@ function numberDown() {
     const newQuantity = quantity - 1;
     counterQuantity.innerHTML = newQuantity;
   }
+}
+
+menuItems.map(item => item.addEventListener("click", () => serveIndex()));
+function serveIndex() {
+  const basketContent = JSON.stringify(basket);
+  location.href='./index.html?basket=' + basketContent;
 }

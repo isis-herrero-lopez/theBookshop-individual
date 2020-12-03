@@ -6,10 +6,12 @@ const basketSize = document.getElementById("basket_size");
 const productsList = document.getElementsByClassName("products_list")[0];
 const menuItems = Array.from(document.getElementsByClassName("menu_item"));
 
-const basketContent = window.location.search.substring(8).split("%20").join(' ').split("%22").join('"');
-if (basketContent !== "") {
-  let contents = JSON.parse(basketContent);
-  updateBasketSize(contents);
+let basket = [];
+
+const isBasket= window.location.search.substring(8).split("%20").join(' ').split("%22").join('"');
+if (isBasket !== "") {
+  basket = JSON.parse(isBasket);
+  updateBasketSize(basket);
 }
 
 function updateBasketSize(basket) {
@@ -30,7 +32,6 @@ function updateBasketSize(basket) {
 }
 
 
-let basket = [];
 fetch("./json/books.json")
   .then(res => {
     return res.json();
@@ -103,7 +104,6 @@ function goToBasket() {
 
 menuItems.map(item => item.addEventListener("click", () => serveIndex()));
 function serveIndex() {
-  console.log("hello");
   const basketContent = JSON.stringify(basket);
   location.href='./index.html?basket=' + basketContent;
 }

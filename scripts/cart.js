@@ -7,6 +7,7 @@ const basketContent = window.location.search.substring(8).split("%20").join(' ')
 const basketSpace = document.getElementById("basket_contents");
 const totalPriceSlot = document.getElementById("final_price");
 const basketSize = document.getElementById("basket_size");
+const menuItems = Array.from(document.getElementsByClassName("menu_item"));
 
 let contents = JSON.parse(basketContent);
 
@@ -139,4 +140,10 @@ function deleteBook(index) {
   const newContents = contents.filter(item => contents.indexOf(item) !== index);
   basketSpace.innerHTML = "";
   showContents(newContents);
+}
+
+menuItems.map(item => item.addEventListener("click", () => serveIndex()));
+function serveIndex() {
+  const basketContent = JSON.stringify(contents);
+  location.href='./index.html?basket=' + basketContent;
 }
