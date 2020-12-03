@@ -1,6 +1,8 @@
 const basketContent = window.location.search.substring(8).split("%20").join(' ').split("%22").join('"');
 const basketSpace = document.getElementById("basket_contents");
 const totalPriceSlot = document.getElementById("final_price");
+const basketSize = document.getElementById("basket_size");
+
 const contents = JSON.parse(basketContent);
 if (contents.length === 0) {
   basketSpace.innerHTML += `<p class="empty_cart">Your basket is empty.</p>`;
@@ -31,7 +33,7 @@ if (contents.length === 0) {
             <p class="price_title">Quantity</p>
             <div class="quantity_counter">
               <div id="counter">
-                <p id="number_${contents.indexOf(item)}">${item.quantity}</p>
+                <p class="counter_number" id="number_${contents.indexOf(item)}">${item.quantity}</p>
               </div>
               <div class="up_down">
                 <div id="counter_up" onclick="numberUp('item_` + contents.indexOf(item) + `')">
@@ -74,6 +76,7 @@ function numberUp(item) {
   const newTotal = (price * newValue).toFixed(2);
   total.innerHTML = newTotal + " €";
   totalBill();
+  updateBasketSize();
 }
 function numberDown(item) {
   const number = item.substring(5);
@@ -92,6 +95,7 @@ function numberDown(item) {
   const newTotal = (price * newValue).toFixed(2);
   total.innerHTML = newTotal + " €";
   totalBill();
+  updateBasketSize();
 }
 
 window.addEventListener("load", totalBill);
@@ -104,4 +108,19 @@ function totalBill() {
     finalPrice += prices[i];
   }
   totalPriceSlot.innerHTML = finalPrice + " €";
+}
+
+window.addEventListener("load", updateBasketSize);
+function updateBasketSize() {
+  const quantities = document.getElementsByClassName("counter_number");
+  let newQuantity = 0;
+  for (let i = 0; i < quantities.length; i++) {
+    const number = parseInt(quantities[i].innerHTML);
+    newQuantity += number;
+  }
+  if (newQuantity !== 1) {
+    basketSize.innerHTML = "(" + newQuantity + " items)";
+  } else {
+    basketSize.innerHTML = "(1 item)";
+  }
 }
