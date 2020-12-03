@@ -113,7 +113,7 @@ function totalBill() {
   for (let i = 0; i < prices.length; i++) {
     finalPrice += prices[i];
   }
-  totalPriceSlot.innerHTML = finalPrice + " €";
+  totalPriceSlot.innerHTML = finalPrice.toFixed(2) + " €";
 }
 
 function updateBasketSize() {
