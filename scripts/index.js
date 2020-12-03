@@ -7,17 +7,31 @@ fetch("./json/books.json")
   })
   .then(data => {
     data.map(item => {
-      const product = `<div class="product_item">
-        <div onclick="openDetails('${item.title}')">
-          <img src="${item.image}">
-          <h3>${item.title}</h3>
-          <h4>${item.author}</h4>
-          <h5>${item.price} €</h5>
-        </div>
-        <p class="button_primary" onclick="toBasket('${item.title}')">Add to Basket</p>
-        <p style="display:none">${item.filters}</p>
-    </div>`;
-    productsList.innerHTML += product;
+      let product;
+      if (item.title === "Harry Potter and the Philosopher's Stone"){
+        product = `<div class="product_item">
+          <div onclick="openDetails('Harry Potter and the Philosophers Stone')">
+            <img src="${item.image}">
+            <h3>${item.title}</h3>
+            <h4>${item.author}</h4>
+            <h5>${parseFloat(item.price).toFixed(2)} €</h5>
+          </div>
+          <p class="button_primary" onclick="toBasket('Harry Potter and the Philosophers Stone')">Add to Basket</p>
+          <p style="display:none">${item.filters}</p>
+        </div>`;
+      } else {
+        product = `<div class="product_item">
+          <div onclick="openDetails('${item.title}')">
+            <img src="${item.image}">
+            <h3>${item.title}</h3>
+            <h4>${item.author}</h4>
+            <h5>${parseFloat(item.price).toFixed(2)} €</h5>
+          </div>
+          <p class="button_primary" onclick="toBasket('${item.title}')">Add to Basket</p>
+          <p style="display:none">${item.filters}</p>
+        </div>`;
+      }
+      productsList.innerHTML += product;
     });
   });
 
@@ -32,6 +46,9 @@ function toBasket(title) {
     return res.json();
   })
   .then(data => {
+    if (title === "Harry Potter and the Philosophers Stone") {
+      title = "Harry Potter and the Philosopher's Stone";
+    }
     const product = data.filter(item => item.title === title)[0];
     if (product !== undefined) {
       productToCart = {

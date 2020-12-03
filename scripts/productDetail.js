@@ -13,7 +13,10 @@ const priceSlot = document.getElementById("productPrice");
 const summarySlot = document.getElementById("productSummary");
 const related = document.getElementsByClassName("related_products")[0];
 
-const title = window.location.search.substring(7).split("%20").join(' ');
+let title = window.location.search.substring(7).split("%20").join(' ');
+if (title === "Harry Potter and the Philosophers Stone") {
+  title = "Harry Potter and the Philosopher's Stone"
+} 
 fetch("./json/books.json")
   .then(res => {
     return res.json();
@@ -85,6 +88,9 @@ function toBasket(title) {
     return res.json();
   })
   .then(data => {
+    if (title === "Harry Potter and the Philosophers Stone") {
+      title = "Harry Potter and the Philosopher's Stone";
+    }
     const product = data.filter(item => item.title === title)[0];
     const quantity = parseInt(document.getElementById("counter_number").innerHTML);
     if (product !== undefined) {
