@@ -86,6 +86,7 @@
   height: 20px;
   color: #8400FF;
   font-size: 30px;
+  cursor: pointer;
 }
 #counter_down i {
   position: relative;

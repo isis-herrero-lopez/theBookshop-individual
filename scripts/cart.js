@@ -2,7 +2,6 @@ const basketContent = window.location.search.substring(8).split("%20").join(' ')
 const basketSpace = document.getElementById("basket_contents");
 const totalPriceSlot = document.getElementById("final_price");
 const contents = JSON.parse(basketContent);
-console.log(contents);
 if (contents.length === 0) {
   basketSpace.innerHTML += `<p class="empty_cart">Your basket is empty.</p>`;
   basketSpace.style.marginBottom = "30px";
@@ -92,7 +91,6 @@ function numberDown(item) {
   const total = document.getElementById(totalId);
   const newTotal = (price * newValue).toFixed(2);
   total.innerHTML = newTotal + " €";
-  console.log(newTotal);
   totalBill();
 }
 

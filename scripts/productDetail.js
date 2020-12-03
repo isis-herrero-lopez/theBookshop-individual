@@ -13,14 +13,12 @@ const priceSlot = document.getElementById("productPrice");
 const summarySlot = document.getElementById("productSummary");
 
 const title = window.location.search.substring(7).split("%20").join(' ');
-console.log(title);
 fetch("./json/books.json")
   .then(res => {
     return res.json();
   })
   .then(data => {
     const product = data.filter(item => item.title === title)[0];
-    console.log(product);
     imageSlot.src = product.image;
     titleSlot.innerHTML = product.title;
     authorSlot.innerHTML = product.author;
@@ -38,10 +36,15 @@ function goToBasket() {
   const basketContent = JSON.stringify(basket);
   location.href='./cart.html?basket=' + basketContent;
 }
-
+const counterUp = document.getElementById("counter_up");
+const counterDown = document.getElementById("counter_down");
 const button = document.getElementById("basket_button");
-console.log(button);
-button.addEventListener("click", () => toBasket(title));
+window.addEventListener("load", () => {
+  counterUp.addEventListener("click", () => numberUp());
+  counterDown.addEventListener("click", () => numberDown());
+  button.addEventListener("click", () => toBasket(title));
+});
+
 
 function toBasket(title) {
   let productToCart = {};
@@ -70,4 +73,21 @@ function toBasket(title) {
       }
     }
   });
+}
+
+
+const counterQuantity = document.getElementById("counter_number");
+function numberUp() {
+  const quantity = parseInt(document.getElementById("counter_number").innerHTML);
+  if (quantity < 10) {
+    const newQuantity = quantity + 1;
+    counterQuantity.innerHTML = newQuantity;
+  }
+}
+function numberDown() {
+  const quantity = parseInt(document.getElementById("counter_number").innerHTML);
+  if (quantity > 1) {
+    const newQuantity = quantity - 1;
+    counterQuantity.innerHTML = newQuantity;
+  }
 }
