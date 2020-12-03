@@ -44,15 +44,12 @@ function toBasket(title) {
         quantity: 1
       };
       basket = [...basket, productToCart];
-      console.log(basket);
-      
       if (basket.length === 1) {
         basketSize.innerHTML = "(1 item)";
       } else if (basket.length > 1) {
         basketSize.innerHTML = "(" + basket.length + " items)";
       }
     }
-    console.log(basket);
   });
 }
 
