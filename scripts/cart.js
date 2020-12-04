@@ -1,6 +1,6 @@
 window.addEventListener("load", changeAddress);
 function changeAddress() {
-  window.history.replaceState({}, document.title, "/" + "productDetail.html");
+  window.history.replaceState({}, document.title, "/" + "cart.html");
 }
 
 const basketContent = window.location.search.substring(8).split("%20").join(' ').split("%22").join('"');
@@ -137,9 +137,10 @@ function updateBasketSize() {
 }
 
 function deleteBook(index) {
-  const newContents = contents.filter(item => contents.indexOf(item) !== index);
+  contents = contents.filter(item => contents.indexOf(item) !== index);
   basketSpace.innerHTML = "";
-  showContents(newContents);
+  showContents(contents);
+  updateBasketSize(contents);
 }
 
 menuItems.map(item => item.addEventListener("click", () => serveIndex()));
