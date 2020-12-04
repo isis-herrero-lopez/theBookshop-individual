@@ -58,7 +58,7 @@ fetch("./json/books.json")
             <h4>${item.author}</h4>
             <h5>${parseFloat(item.price).toFixed(2)} €</h5>
           </div>
-          <p class="button_primary" onclick="toBasket('${item.title}')">Add to Basket</p>
+          <p class="button_primary" id="button_${data.indexOf(item)}" onclick="toBasket('${item.title}')">Add to Basket</p>
           <p style="display:none">${item.filters}</p>
         </div>`;
       }
@@ -94,11 +94,29 @@ function toBasket(title) {
           quantity: 1
         };
         basket = [...basket, productToCart];
-      } else {
-        console.log("hello");
-      }  
-    updateBasketSize(basket);
+      }
+    } else {
+      let inBasketIndex;
+      for (let i = 0; i < basket.length; i++) {
+        if (basket[i].title === title) {
+          inBasketIndex = i;
+          break;
+        }
+      }
+      const oldQuantity = basket[inBasketIndex].quantity;
+      const newQuantity = oldQuantity + 1;
+      productToCart = {
+        image: product.image,
+        title: product.title,
+        author: product.author,
+        length: product.length,
+        format: product.format,
+        price: product.price,
+        quantity: newQuantity
+      }
+      basket[inBasketIndex] = productToCart;
     }
+    updateBasketSize(basket);
   });
 }
 
