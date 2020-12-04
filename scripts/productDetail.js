@@ -27,7 +27,6 @@ if (window.location.search.substring(1).indexOf("?") !== -1) {
   title = window.location.search.substring(7, endingSubstring).split("%20").join(' ');
   const items = window.location.search.substring(endingSubstring + 8).split("%20").join(' ').split("%22").join('"');;
   basket = JSON.parse(items);
-  console.log(basket);
   updateBasketSize(basket);
 } else {
   title = window.location.search.substring(7).split("%20").join(' ');
@@ -127,7 +126,30 @@ function toBasket(title) {
     }
     const product = data.filter(item => item.title === title)[0];
     const quantity = parseInt(document.getElementById("counter_number").innerHTML);
-    if (product !== undefined) {
+    const inBasket = basket.filter(item => item.title === title);
+    if (inBasket.length === 0) {
+      if (product !== undefined) {
+        productToCart = {
+          image: product.image,
+          title: product.title,
+          author: product.author,
+          length: product.length,
+          format: product.format,
+          price: product.price,
+          quantity: quantity
+        };
+        basket = [...basket, productToCart];
+      }
+    } else {
+      let inBasketIndex;
+      for (let i = 0; i < basket.length; i++) {
+        if (basket[i].title === title) {
+          inBasketIndex = i;
+          break;
+        }
+      }
+      const oldQuantity = basket[inBasketIndex].quantity;
+      const newQuantity = oldQuantity + quantity;
       productToCart = {
         image: product.image,
         title: product.title,
@@ -135,23 +157,24 @@ function toBasket(title) {
         length: product.length,
         format: product.format,
         price: product.price,
-        quantity: quantity
-      };
-      basket = [...basket, productToCart];
-      if (basket.length === 1) {
-        const size = basket[0].quantity;
-        if (size === 1) {
-          basketSize.innerHTML = "(1 item)";
-        } else {
-          basketSize.innerHTML = "(" + size + " items)";
-        }
-      } else if (basket.length > 1) {
-        let size = 0;
-        for (let i = 0; i < basket.length; i++) {
-          size += basket[i].quantity;
-        }
+        quantity: newQuantity
+      }
+      basket[inBasketIndex] = productToCart;
+    } 
+
+    if (basket.length === 1) {
+      const size = basket[0].quantity;
+      if (size === 1) {
+        basketSize.innerHTML = "(1 item)";
+      } else {
         basketSize.innerHTML = "(" + size + " items)";
       }
+    } else if (basket.length > 1) {
+      let size = 0;
+      for (let i = 0; i < basket.length; i++) {
+        size += basket[i].quantity;
+      }
+      basketSize.innerHTML = "(" + size + " items)";
     }
   });
 }

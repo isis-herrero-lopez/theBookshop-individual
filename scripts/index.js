@@ -82,18 +82,22 @@ function toBasket(title) {
       title = "Harry Potter and the Philosopher's Stone";
     }
     const product = data.filter(item => item.title === title)[0];
-    if (product !== undefined) {
-      productToCart = {
-        image: product.image,
-        title: product.title,
-        author: product.author,
-        length: product.length,
-        format: product.format,
-        price: product.price,
-        quantity: 1
-      };
-      basket = [...basket, productToCart];
-      updateBasketSize(basket);
+    if (basket.filter(item => item.title === product.title).length === 0) {
+      if (product !== undefined) {
+        productToCart = {
+          image: product.image,
+          title: product.title,
+          author: product.author,
+          length: product.length,
+          format: product.format,
+          price: product.price,
+          quantity: 1
+        };
+        basket = [...basket, productToCart];
+      } else {
+        console.log("hello");
+      }  
+    updateBasketSize(basket);
     }
   });
 }
