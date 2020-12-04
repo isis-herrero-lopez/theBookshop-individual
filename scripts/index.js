@@ -48,19 +48,23 @@ function fillPage(data) {
             <h4>${item.author}</h4>
             <h5>${parseFloat(item.price).toFixed(2)} €</h5>
           </div>
-          <p class="button_primary" id="button_${data.indexOf(item)}" onclick="toBasket('Harry Potter and the Philosophers Stone')">Add to Basket</p>
-          <p class="item_filters" style="display:none">${item.filters}</p>
+          <div class="button_popup">
+            <p class="popup" id="popup_${data.indexOf(item)}">Added to your basket.</p>
+            <p class="button_primary" id="button_${data.indexOf(item)}" onclick="toBasket('Harry Potter and the Philosophers Stone', '${data.indexOf(item)}')">Add to Basket</p>
+          </div>
         </div>`;
       } else {
-        product = `<div class="product_item"id="item_${data.indexOf(item)}">
+        product = `<div class="product_item" id="item_${data.indexOf(item)}">
           <div onclick="openDetails('${item.title}')">
             <img src="${item.image}">
             <h3>${item.title}</h3>
             <h4>${item.author}</h4>
             <h5>${parseFloat(item.price).toFixed(2)} €</h5>
           </div>
-          <p class="button_primary" id="button_${data.indexOf(item)}" onclick="toBasket('${item.title}')">Add to Basket</p>
-          <p class="item_filters" style="display:none">${item.filters}</p>
+          <div class="button_popup">
+            <p class="popup" id="popup_${data.indexOf(item)}">Added to your basket.</p>
+            <p class="button_primary" id="button_${data.indexOf(item)}" onclick="toBasket('${item.title}', '${data.indexOf(item)}')">Add to Basket</p>
+            </div>
         </div>`;
       }
       productsList.innerHTML += product;
@@ -82,7 +86,7 @@ function openDetails(title) {
   location.href = "./productDetail.html?title=" + title + "?basket=" + basketContent;
 }
 
-function toBasket(title) {
+function toBasket(title, button) {
   let productToCart = {};
   fetch("./json/books.json")
   .then(res => {
@@ -127,8 +131,18 @@ function toBasket(title) {
       }
       basket[inBasketIndex] = productToCart;
     }
+    showPopup(button);
     updateBasketSize(basket);
   });
+}
+
+function showPopup(number) {
+  const popup = document.getElementById("popup_" + number);
+  const button = document.getElementById("button_" + number);
+  popup.classList.toggle("show");
+  setTimeout(() => popup.classList.remove("show"), 3000);
+  button.setAttribute("disabled", true);
+  setTimeout(() => button.removeAttribute("disabled"), 3000);
 }
 
 function goToBasket() {

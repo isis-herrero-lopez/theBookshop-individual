@@ -71,3 +71,45 @@
 .empty_list {
   font-size: 25px;
 }
+
+.button_popup {
+  position: relative;
+}
+.popup {
+  position: absolute;
+  border: 1px solid #8400FF;
+  border-radius: 5px;
+  background-color: white;
+  width: calc(100% - 20px);
+  z-index: 1;
+  padding: 10px;
+  top: 4px;
+  display: none;
+  opacity: 0;
+}
+
+.show {
+  display: block;
+  opacity: 1;
+  animation: showing 3s ease-in-out 1; 
+}
+
+@keyframes showing {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  15% {
+    display: block;
+    opacity: 1;
+  }
+  85% {
+    display: block;
+    opacity: 1;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
+

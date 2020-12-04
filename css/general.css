@@ -110,6 +110,24 @@ footer p {
   border: 3px outset #9019FF;
   cursor: pointer;
 }
+.button_primary[disabled="true"] {
+  animation: disabling 3s ease-in-out 1;
+}
+@keyframes disabling {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.5;
+  }
+  85% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .button_secondary {
   color: #8400FF;
   background-color: white;
