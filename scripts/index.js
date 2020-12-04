@@ -31,7 +31,6 @@ function updateBasketSize(basket) {
   }
 }
 
-
 fetch("./json/books.json")
   .then(res => {
     return res.json();
@@ -40,7 +39,7 @@ fetch("./json/books.json")
     data.map(item => {
       let product;
       if (item.title === "Harry Potter and the Philosopher's Stone"){
-        product = `<div class="product_item">
+        product = `<div class="product_item" id="item_${data.indexOf(item)}">
           <div onclick="openDetails('Harry Potter and the Philosophers Stone')">
             <img src="${item.image}">
             <h3>${item.title}</h3>
@@ -48,10 +47,10 @@ fetch("./json/books.json")
             <h5>${parseFloat(item.price).toFixed(2)} €</h5>
           </div>
           <p class="button_primary" onclick="toBasket('Harry Potter and the Philosophers Stone')">Add to Basket</p>
-          <p style="display:none">${item.filters}</p>
+          <p class="item_filters" style="display:none">${item.filters}</p>
         </div>`;
       } else {
-        product = `<div class="product_item">
+        product = `<div class="product_item"id="item_${data.indexOf(item)}">
           <div onclick="openDetails('${item.title}')">
             <img src="${item.image}">
             <h3>${item.title}</h3>
@@ -59,7 +58,7 @@ fetch("./json/books.json")
             <h5>${parseFloat(item.price).toFixed(2)} €</h5>
           </div>
           <p class="button_primary" id="button_${data.indexOf(item)}" onclick="toBasket('${item.title}')">Add to Basket</p>
-          <p style="display:none">${item.filters}</p>
+          <p class="item_filters" style="display:none">${item.filters}</p>
         </div>`;
       }
       productsList.innerHTML += product;
@@ -129,4 +128,43 @@ menuItems.map(item => item.addEventListener("click", () => serveIndex()));
 function serveIndex() {
   const basketContent = JSON.stringify(basket);
   location.href='./index.html?basket=' + basketContent;
+}
+
+const checkboxes = Array.from(document.getElementsByTagName("input"));
+checkboxes.map(item => item.addEventListener("change", checkFilters));
+function checkFilters() {
+  const isActive = checkboxes.filter(item => item.checked === true);
+  const itemFilters = Array.from(document.getElementsByClassName("item_filters")); 
+  if (isActive.length > 0) {
+    let itemsActive = [];
+    for (let i = 0; i < isActive.length; i++) {
+      const filterValue = isActive[i].defaultValue;
+      for (let k = 0; k < itemFilters.length; k++) {
+        const thisFilters = itemFilters[k].innerHTML.split(",");
+        for (let l = 0; l < thisFilters.length; l++) {
+          if (filterValue === thisFilters[l]) {
+            const index = itemFilters[k].parentElement.id.substring(5);
+            itemsActive = [...itemsActive, index];
+          }
+        }
+      }
+    }
+    const parents = Array.from(document.getElementsByClassName("product_item"));
+    for (let i = 0; i < parents.length; i++) {
+      const index = parents[i].id.substring(5);
+      for (let k = 0; k < itemsActive.length; k++) {
+        if (index === itemsActive[k]) {
+          break;
+        } else if (k === itemsActive.length -1) {
+          const hideParent = document.getElementById("item_" + index);
+          hideParent.style.display = "none";
+        }
+      }
+    }
+  } else {
+    const parents = Array.from(document.getElementsByClassName("product_item"));
+    parents.map(item => {
+      item.style.display = "flex";
+    })
+  }
 }
