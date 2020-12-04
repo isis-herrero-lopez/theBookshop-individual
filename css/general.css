@@ -59,6 +59,7 @@ header > div:last-of-type {
   padding: 10px 20px;
   margin-right: 20px;
   font-size: 20px;
+  cursor: pointer;
 }
 .menu_selected {
   background-color: white;
@@ -67,17 +68,6 @@ header > div:last-of-type {
   color: #8400FF;
   font-weight: 600;
 }
-/*
-.menu_item a {
-  text-decoration: none;
-  cursor: pointer;
-  color: white;
-}
-.menu_selected a {
-  color: #8400FF;
-  font-weight: 600;
-}
-*/
 
 footer {
   display: flex;
