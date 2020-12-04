@@ -31,11 +31,13 @@ function updateBasketSize(basket) {
   }
 }
 
-fetch("./json/books.json")
-  .then(res => {
-    return res.json();
-  })
-  .then(data => {
+let database = [];
+
+function fillPage(data) {
+  productsList.innerHTML = "";
+  if (data.length === 0) {
+    productsList.innerHTML = `<p class="empty_list">No matches found. Please, change the filters.</p>`;
+  } else {
     data.map(item => {
       let product;
       if (item.title === "Harry Potter and the Philosopher's Stone"){
@@ -46,7 +48,7 @@ fetch("./json/books.json")
             <h4>${item.author}</h4>
             <h5>${parseFloat(item.price).toFixed(2)} €</h5>
           </div>
-          <p class="button_primary" onclick="toBasket('Harry Potter and the Philosophers Stone')">Add to Basket</p>
+          <p class="button_primary" id="button_${data.indexOf(item)}" onclick="toBasket('Harry Potter and the Philosophers Stone')">Add to Basket</p>
           <p class="item_filters" style="display:none">${item.filters}</p>
         </div>`;
       } else {
@@ -63,6 +65,16 @@ fetch("./json/books.json")
       }
       productsList.innerHTML += product;
     });
+  }
+}
+
+fetch("./json/books.json")
+  .then(res => {
+    return res.json();
+  })
+  .then(data => {
+    database = data;
+    fillPage(database);
   });
 
 function openDetails(title) {
@@ -131,40 +143,49 @@ function serveIndex() {
 }
 
 const checkboxes = Array.from(document.getElementsByTagName("input"));
-checkboxes.map(item => item.addEventListener("change", checkFilters));
-function checkFilters() {
-  const isActive = checkboxes.filter(item => item.checked === true);
-  const itemFilters = Array.from(document.getElementsByClassName("item_filters")); 
-  if (isActive.length > 0) {
-    let itemsActive = [];
-    for (let i = 0; i < isActive.length; i++) {
-      const filterValue = isActive[i].defaultValue;
-      for (let k = 0; k < itemFilters.length; k++) {
-        const thisFilters = itemFilters[k].innerHTML.split(",");
-        for (let l = 0; l < thisFilters.length; l++) {
-          if (filterValue === thisFilters[l]) {
-            const index = itemFilters[k].parentElement.id.substring(5);
-            itemsActive = [...itemsActive, index];
-          }
-        }
+checkboxes.map(item => item.addEventListener("change", () => checkFilters(item.id)));
+function checkFilters(button) {
+  if (button.substring(0, button.length - 1) === "language") {
+    for (let i = 0; i < 3; i++) {
+      if (checkboxes[i].checked === true && checkboxes[i].id !== button) {
+        document.getElementById(checkboxes[i].id).checked = false;
       }
     }
-    const parents = Array.from(document.getElementsByClassName("product_item"));
-    for (let i = 0; i < parents.length; i++) {
-      const index = parents[i].id.substring(5);
-      for (let k = 0; k < itemsActive.length; k++) {
-        if (index === itemsActive[k]) {
-          break;
-        } else if (k === itemsActive.length -1) {
-          const hideParent = document.getElementById("item_" + index);
-          hideParent.style.display = "none";
-        }
+  } else if (button.substring(0, button.length - 1) === "genre") {
+    for (let i = 3; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked === true && checkboxes[i].id !== button) {
+        document.getElementById(checkboxes[i].id).checked = false;
       }
     }
-  } else {
-    const parents = Array.from(document.getElementsByClassName("product_item"));
-    parents.map(item => {
-      item.style.display = "flex";
-    })
   }
+  updateItems();
+}
+
+function updateItems() {
+  const isActive = checkboxes.filter(item => item.checked === true);
+  if (isActive.length === 0) {
+    fillPage(database);
+  } else if (isActive.length === 1) {
+    const filter = isActive[0].defaultValue;
+    const filteredDatabase = database.filter(item => {
+      const bookFilters = item.filters;
+      for (let i = 0; i < bookFilters.length; i++) {
+        if (bookFilters[i] === filter) {
+          return item;
+        }
+      }
+    });
+    fillPage(filteredDatabase);
+  } else if (isActive.length === 2) {
+    const filters = [isActive[0].defaultValue, isActive[1].defaultValue];
+    const filteredDatabase = database.filter(item => {
+      const bookFilters = item.filters;
+      if ((bookFilters[0] === filters[0] && bookFilters[1] === filters[1]) || 
+          (bookFilters[0] === filters[1] && bookFilters[1] === filters[0])) {
+        return item;
+      }
+    });
+    fillPage(filteredDatabase);
+  }
+
 }

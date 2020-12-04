@@ -33,7 +33,7 @@
     "length": "502 pages",
     "price": 35.90,
     "summary": "Väinö Linnan Tuntematon sotilas ilmestyi ensimmäisen kerran 3. joulukuuta 1954. Tässä Väinö Linnan 90-vuotissyntymän kunniaksi julkaistussa juhlapainoksessa mukana ovat myös Linnan omat kirjoitukset Tuntemattoman sotilaan tausta ja Sotaromaanin kirjoittamisesta sekä Edvin Laineen Tuntematon sotilas -elokuvan filmatisointia varten kirjoitettu teksti.'Minulta on monesti kysytty tiesinkö työn aikana, että kirjastani tulisi sellainen menestys kuin tuli. Siihen aikaan minulla oli tapana sanoa, että sitä myydään tuhannesta sataantuhanteen kappaleeseen. Tuo satatuhatta oli olevinaan jonkinlaista itseironiaa.'",
-    "filters": ["Classics", "Finnish", "Historical"]
+    "filters": ["Classics", "Finnish"]
   },
   {
     "title": "Harry Potter and the Philosopher's Stone",
@@ -48,7 +48,7 @@
     "filters": ["Fantasy", "English"]
   },
   {
-    "title": " Harry Potter and the Chamber of Secrets",
+    "title": "Harry Potter and the Chamber of Secrets",
     "author": "J.K. Rowling",
     "image": "/images/potter2.jpeg",
     "format": "Hardcover",
