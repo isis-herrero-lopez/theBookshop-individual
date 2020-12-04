@@ -116,6 +116,13 @@ window.addEventListener("load", () => {
 
 function toBasket(title) {
   let productToCart = {};
+  const popup = document.getElementById("basket_popup");
+  const button = document.getElementById("basket_button");
+  popup.classList.toggle("show");
+  setTimeout(() => popup.classList.remove("show"), 3000);
+  button.setAttribute("disabled", true);
+  setTimeout(() => button.removeAttribute("disabled"), 3000);
+
   fetch("./json/books.json")
   .then(res => {
     return res.json();
