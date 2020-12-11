@@ -148,3 +148,8 @@ function serveIndex() {
   const basketContent = JSON.stringify(contents);
   location.href='./productList.html?basket=' + basketContent;
 }
+
+function goToIndex() {
+  const basketContent = JSON.stringify(basket);
+  location.href= './index.html?basket=' + basketContent;
+}

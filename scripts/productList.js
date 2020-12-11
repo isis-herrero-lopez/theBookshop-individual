@@ -203,3 +203,8 @@ function updateItems() {
   }
 
 }
+
+function goToIndex() {
+  const basketContent = JSON.stringify(basket);
+  location.href= './index.html?basket=' + basketContent;
+}
