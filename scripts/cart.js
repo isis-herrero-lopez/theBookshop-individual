@@ -9,14 +9,17 @@ const totalPriceSlot = document.getElementById("final_price");
 const basketSize = document.getElementById("basket_size");
 const menuItems = Array.from(document.getElementsByClassName("menu_item"));
 
-let contents = JSON.parse(basketContent);
+let contents;
+if (basketContent !== "") {
+  contents = JSON.parse(basketContent);
+}
 
 window.addEventListener("load", totalBill);
 window.addEventListener("load", updateBasketSize);
 window.addEventListener("load", showContents(contents));
 
 function showContents(contents) {
-  if (contents.length === 0) {
+  if (contents === undefined) {
     basketSpace.innerHTML += `<p class="empty_cart">Your basket is empty.</p>`;
     basketSpace.style.marginBottom = "30px";
     const mainDivs = document.getElementsByTagName("main")[0].getElementsByTagName("div");
