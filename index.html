@@ -6,11 +6,11 @@
     <link rel="stylesheet" type="text/css" href="./css/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="fontawesome-free-5.15.1-web/css/all.css">
-    <title>theBookshop - Novels</title>
+    <title>theBookshop</title>
   </head>
   <body>
     <header>
-      <div id="logo">
+      <div id="logo" onclick="goToIndex()">
         <h1>the<span>Bookshop</span></h1>
       </div>
       <div>
@@ -19,7 +19,7 @@
           <p>Basket <span id="basket_size">(0 items)</span></p>
         </div>
         <div id="menu">
-          <div class="menu_item menu_selected">
+          <div class="menu_item">
             <p>NOVELS</p>
           </div>
           <div class="menu_item">
@@ -35,32 +35,7 @@
       </div>
     </header>
     <main>
-      <div class="products_main">
-        <div class="filters">
-          <h3>FILTERS</h3>
-          <h4>Language:</h4>
-          <input type="checkbox" id="language1" name="language1" value="English">
-          <label for="language1">English</label><br/>
-          <input type="checkbox" id="language2" name="language2" value="Finnish">
-          <label for="language2">Finnish</label><br/>
-          <input type="checkbox" id="language3" name="language3" value="Spanish">
-          <label for="language3">Spanish</label><br/>
-          <h4>Genre:</h4>
-          <input type="checkbox" id="genre1" name="genre1" value="Classics">
-          <label for="genre1">Classics</label><br/>
-          <input type="checkbox" id="genre2" name="genre2" value="Fantasy">
-          <label for="genre2">Fantasy</label><br/>
-          <input type="checkbox" id="genre3" name="genre3" value="Historical">
-          <label for="genre3">Historical</label><br/>
-        </div>
-        <div class="products_subsection">
-          <div class="headline">
-            <h2>Novels</h2>
-          </div>
-          <div class="products_list">
-          </div>
-        </div>
-      </div>
+      
     </main>
     <footer>
       <p>Contact Us</p>

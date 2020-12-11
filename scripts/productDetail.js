@@ -204,5 +204,5 @@ function numberDown() {
 menuItems.map(item => item.addEventListener("click", () => serveIndex()));
 function serveIndex() {
   const basketContent = JSON.stringify(basket);
-  location.href='./index.html?basket=' + basketContent;
+  location.href='./html?basket=' + basketContent;
 }
