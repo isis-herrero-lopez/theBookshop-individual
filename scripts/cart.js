@@ -153,6 +153,6 @@ function serveIndex() {
 }
 
 function goToIndex() {
-  const basketContent = JSON.stringify(basket);
+  const basketContent = JSON.stringify(contents);
   location.href= '/index.html?basket=' + basketContent;
 }
