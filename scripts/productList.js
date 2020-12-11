@@ -72,7 +72,7 @@ function fillPage(data) {
   }
 }
 
-fetch("./json/books.json")
+fetch("/json/books.json")
   .then(res => {
     return res.json();
   })
@@ -83,12 +83,12 @@ fetch("./json/books.json")
 
 function openDetails(title) {
   const basketContent = JSON.stringify(basket);
-  location.href = "./productDetail.html?title=" + title + "?basket=" + basketContent;
+  location.href = "/productDetail.html?title=" + title + "?basket=" + basketContent;
 }
 
 function toBasket(title, button) {
   let productToCart = {};
-  fetch("./json/books.json")
+  fetch("/json/books.json")
   .then(res => {
     return res.json();
   })
@@ -147,13 +147,13 @@ function showPopup(number) {
 
 function goToBasket() {
   const basketContent = JSON.stringify(basket);
-  location.href='./cart.html?basket=' + basketContent;
+  location.href='/cart.html?basket=' + basketContent;
 }
 
 menuItems.map(item => item.addEventListener("click", () => serveIndex()));
 function serveIndex() {
   const basketContent = JSON.stringify(basket);
-  location.href='./productList.html?basket=' + basketContent;
+  location.href='/productList.html?basket=' + basketContent;
 }
 
 const checkboxes = Array.from(document.getElementsByTagName("input"));
@@ -206,5 +206,5 @@ function updateItems() {
 
 function goToIndex() {
   const basketContent = JSON.stringify(basket);
-  location.href= './index.html?basket=' + basketContent;
+  location.href= '/index.html?basket=' + basketContent;
 }

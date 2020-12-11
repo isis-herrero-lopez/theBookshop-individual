@@ -53,7 +53,7 @@ function updateBasketSize(basket) {
 if (title === "Harry Potter and the Philosophers Stone") {
   title = "Harry Potter and the Philosopher's Stone"
 } 
-fetch("./json/books.json")
+fetch("/json/books.json")
   .then(res => {
     return res.json();
   })
@@ -104,7 +104,7 @@ fetch("./json/books.json")
 
 function goToBasket() {
   const basketContent = JSON.stringify(basket);
-  location.href='./cart.html?basket=' + basketContent;
+  location.href='/cart.html?basket=' + basketContent;
 }
 
 window.addEventListener("load", () => {
@@ -123,7 +123,7 @@ function toBasket(title) {
   button.setAttribute("disabled", true);
   setTimeout(() => button.removeAttribute("disabled"), 3000);
 
-  fetch("./json/books.json")
+  fetch("/json/books.json")
   .then(res => {
     return res.json();
   })
@@ -204,10 +204,10 @@ function numberDown() {
 menuItems.map(item => item.addEventListener("click", () => serveIndex()));
 function serveIndex() {
   const basketContent = JSON.stringify(basket);
-  location.href='./html?basket=' + basketContent;
+  location.href='/html?basket=' + basketContent;
 }
 
 function goToIndex() {
   const basketContent = JSON.stringify(basket);
-  location.href= './index.html?basket=' + basketContent;
+  location.href= '/index.html?basket=' + basketContent;
 }

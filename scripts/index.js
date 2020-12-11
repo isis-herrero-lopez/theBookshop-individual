@@ -32,16 +32,16 @@ function updateBasketSize(basket) {
 
 function goToBasket() {
   const basketContent = JSON.stringify(basket);
-  location.href='./cart.html?basket=' + basketContent;
+  location.href='/cart.html?basket=' + basketContent;
 }
 
 menuItems.map(item => item.addEventListener("click", () => serveIndex()));
 function serveIndex() {
   const basketContent = JSON.stringify(basket);
-  location.href='./productList.html?basket=' + basketContent;
+  location.href='/productList.html?basket=' + basketContent;
 }
 
 function goToIndex() {
   const basketContent = JSON.stringify(basket);
-  location.href= './index.html?basket=' + basketContent;
+  location.href= '/index.html?basket=' + basketContent;
 }
